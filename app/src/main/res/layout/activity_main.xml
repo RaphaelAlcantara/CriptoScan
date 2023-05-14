@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:backgroundTint="#F6921A"
+        android:backgroundTint="@color/cor_logo"
         android:text="Entrar"
         android:textColor="#FFF9F9"
         android:textSize="16sp"
