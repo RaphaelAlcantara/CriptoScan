@@ -7,67 +7,128 @@
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="409dp"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="182dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_weight="1"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Bem-vindo"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="409dp"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.157">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="409dp"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_weight="1"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Bem-vindo"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="409dp"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/search_view_bg"
+
+                app:iconifiedByDefault="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:queryHint="Buscar Criptomoedas"
+
+
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/search_view_bg"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:paddingEnd="10dp">
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="Buscar Criptomoedas"
-            app:iconifiedByDefault="false"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="FAVORITOS"
+                    android:textAlignment="viewStart"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/barra_laranja" />
 
-            />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        style="@style/Widget.AppCompat.ImageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/icone_bitcoin" />
 
+                    <ImageButton
+                        android:id="@+id/imageButton2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#00FFFFFF"
+                        android:contentDescription="@string/app_name"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="15dp"
+                        android:src="@drawable/icone_ethereum" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
