@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,6 +16,7 @@ import com.ifpe.criptoscan.databinding.ActivityNavBinding;
 public class NAV extends AppCompatActivity {
 
     private ActivityNavBinding binding;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,12 @@ public class NAV extends AppCompatActivity {
 
         binding = ActivityNavBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //search
+        searchView = findViewById(R.id.searchView);
+        searchView.clearFocus();
+
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

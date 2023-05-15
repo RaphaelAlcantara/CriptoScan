@@ -4,4 +4,6 @@
     <string name="title_home">Home</string>
     <string name="title_alert">Alertas</string>
     <string name="title_notifications">Notificações</string>
+    <string name="app_label">Pesquisa aqui</string>
+    <string name="search_hint">Criptomoedas</string>
 </resources>

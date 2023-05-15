@@ -49,19 +49,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.157">
 
-        <SearchView
-            android:id="@+id/searchView3"
-            style="@android:style/Widget.Material.Light.SearchView"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|start"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:orientation="horizontal"
-            android:queryHint="Insira o nome da criptomeda"
-            android:textAlignment="textStart">
+            android:layout_margin="8dp"
+            android:background="@drawable/search_view_bg"
 
-        </SearchView>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="Buscar Criptomoedas"
+            app:iconifiedByDefault="false"
+
+
+
+            />
+
+
 
     </LinearLayout>
 
