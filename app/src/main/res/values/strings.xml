@@ -2,6 +2,6 @@
     <string name="app_name">CriptoScan</string>
     <string name="title_activity_nav">NAV</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_alert">Alertas</string>
+    <string name="title_notifications">Notificações</string>
 </resources>
