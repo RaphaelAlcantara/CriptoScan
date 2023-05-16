@@ -134,7 +134,7 @@
         <LinearLayout
             android:id="@+id/CriptoPopulares"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="20dp">
 
@@ -208,28 +208,32 @@
                             android:id="@+id/textView12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bitcoin" />
+                            android:text="BNB"
+                            android:textColor="#000000" />
 
                         <TextView
                             android:id="@+id/textView13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="TextView" />
+                            android:text="$312"
+                            android:textColor="#000000" />
 
                         <TextView
                             android:id="@+id/textView14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="TextView" />
+                            android:text="+0,32"
+                            android:textColor="#4CAF50" />
 
                         <TextView
                             android:id="@+id/textView15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="TextView" />
+                            android:text="$49.371M"
+                            android:textColor="#000000" />
                     </TableRow>
 
                     <TableRow
@@ -242,28 +246,32 @@
                             android:id="@+id/textView16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bitcoin" />
+                            android:text="Bitcoin"
+                            android:textColor="#000000" />
 
                         <TextView
                             android:id="@+id/textView17"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="TextView" />
+                            android:text="$28.348"
+                            android:textColor="#000000" />
 
                         <TextView
                             android:id="@+id/textView18"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="TextView" />
+                            android:text="+1,00%"
+                            android:textColor="#4CAF50" />
 
                         <TextView
                             android:id="@+id/textView19"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="TextView" />
+                            android:text="$548.601M"
+                            android:textColor="#000000" />
                     </TableRow>
 
                     <TableRow
@@ -271,6 +279,46 @@
                         android:layout_height="match_parent" />
                 </TableLayout>
 
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/CriptomoedasTend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Criptomoedas em tendência"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/barra_cripto_popu" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/mini_icon_botcpon" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
