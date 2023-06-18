@@ -6,4 +6,8 @@
     <string name="title_notifications">Notificações</string>
     <string name="app_label">Pesquisa aqui</string>
     <string name="search_hint">Criptomoedas</string>
+    <string name="edit_name">Nome Completo</string>
+    <string name="edit_email">Digite seu Email</string>
+    <string name="edit_password">Digite sua senha</string>
+    <string name="button_cadastrar">Cadastrar</string>
 </resources>
