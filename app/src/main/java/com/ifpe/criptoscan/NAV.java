@@ -21,9 +21,15 @@ public class NAV extends AppCompatActivity {
 
     private ActivityNavBinding binding;
     private SearchView searchView;
+    private FirebaseAuth fbAuth;
+    private FirebaseAuthListener authListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.fbAuth = FirebaseAuth.getInstance();
+        this.authListener = new FirebaseAuthListener(this);
+        
         super.onCreate(savedInstanceState);
 
         binding = ActivityNavBinding.inflate(getLayoutInflater());
@@ -39,7 +45,7 @@ public class NAV extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_profile)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_nav);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -53,8 +59,20 @@ public class NAV extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             mAuth.signOut();
+            this.finish();
         } else {
-            Toast.makeText(NAV.this, "Erro!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NAV.this, "Não foi possivel sair!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fbAuth.addAuthStateListener(authListener);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        fbAuth.removeAuthStateListener(authListener);
     }
 }
