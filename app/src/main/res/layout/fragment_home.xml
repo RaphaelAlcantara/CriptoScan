@@ -138,6 +138,7 @@
             android:id="@+id/CriptoPopulares"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingTop="20dp">
 
@@ -149,26 +150,27 @@
 
                 <TextView
                     android:id="@+id/textView7"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Criptomoedas Populares"
+                    android:text="Top 5 Criptomoedas Populares"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="232dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/barra_cripto_popu" />
 
                 <TableLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center|start"
                     android:paddingTop="8dp"
                     android:paddingEnd="8dp">
 
                     <TableRow
+                        android:id="@+id/CriptoPopularesL1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="clip_horizontal|center|center_horizontal"
@@ -202,85 +204,217 @@
                             android:text="Cap do mercado" />
                     </TableRow>
 
+
                     <TableRow
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingTop="8dp">
 
                         <TextView
-                            android:id="@+id/textView12"
+                            android:id="@+id/coinName1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="BNB"
-                            android:textColor="#000000" />
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/textView13"
+                            android:id="@+id/price1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="$312"
-                            android:textColor="#000000" />
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/textView14"
+                            android:id="@+id/variant1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="+0,32"
-                            android:textColor="#4CAF50" />
+                            android:text="- %"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/textView15"
+                            android:id="@+id/MKTCAP1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="$49.371M"
-                            android:textColor="#000000" />
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
                     </TableRow>
 
                     <TableRow
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingTop="8dp">
 
                         <TextView
-                            android:id="@+id/textView16"
+                            android:id="@+id/coinName2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bitcoin"
-                            android:textColor="#000000" />
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/textView17"
+                            android:id="@+id/price2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="$28.348"
-                            android:textColor="#000000" />
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/textView18"
+                            android:id="@+id/variant2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="+1,00%"
-                            android:textColor="#4CAF50" />
+                            android:text="- %"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/textView19"
+                            android:id="@+id/MKTCAP2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="20dp"
-                            android:text="$548.601M"
-                            android:textColor="#000000" />
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
                     </TableRow>
 
                     <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            android:id="@+id/coinName3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/price3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/variant3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:text="- %"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/MKTCAP3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            android:id="@+id/coinName4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/price4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/variant4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:text="- %"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/MKTCAP4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            android:id="@+id/coinName5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/price5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/variant5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:text="- %"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/MKTCAP5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+                    </TableRow>
+
                 </TableLayout>
 
             </LinearLayout>

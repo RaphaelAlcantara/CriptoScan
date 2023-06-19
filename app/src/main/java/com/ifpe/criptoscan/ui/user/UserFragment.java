@@ -42,9 +42,6 @@ public class UserFragment extends Fragment {
 
         return binding.getRoot();
 
-
-
-
     }
 
 
