@@ -27,10 +27,12 @@ public class NAV extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+
         this.fbAuth = FirebaseAuth.getInstance();
         this.authListener = new FirebaseAuthListener(this);
-        
-        super.onCreate(savedInstanceState);
+
+
 
         binding = ActivityNavBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -54,6 +56,8 @@ public class NAV extends AppCompatActivity {
         //hide action bar
         getSupportActionBar().hide();
     }
+
+
     public void buttonSignOutClick(View view) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -65,14 +69,11 @@ public class NAV extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        fbAuth.addAuthStateListener(authListener);
+    //pegando usuario logado
+    public FirebaseUser getCurrentUser(){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        return currentUser;
     }
-    @Override
-    public void onStop() {
-        super.onStop();
-        fbAuth.removeAuthStateListener(authListener);
-    }
+
+
 }

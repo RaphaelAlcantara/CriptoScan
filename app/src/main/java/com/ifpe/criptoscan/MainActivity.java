@@ -21,8 +21,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        fbAuth = FirebaseAuth.getInstance();
+//        authListener = new FirebaseAuthListener(this);
+//        setContentView(R.layout.activity_main);
+
+        edEmail = findViewById(R.id.login_email);
+        edPassword = findViewById(R.id.login_senha);
+
         this.fbAuth = FirebaseAuth.getInstance();
         this.authListener = new FirebaseAuthListener(this);
+
         setContentView(R.layout.activity_main);
     }
 
@@ -53,11 +61,14 @@ public class MainActivity extends AppCompatActivity {
                     String msg;
                     if(task.isSuccessful())
                     {
-                        msg="SIGN IN OK!";
+                        msg="Login efetuado com sucesso!";
+                        Intent itent = new Intent(this, NAV.class);
+                        startActivity(itent);
+
                     }
                     else
                     {
-                        msg="SIGN IN ERROR!";
+                        msg="Login inválido!";
                     }
                     Toast.makeText(MainActivity.this, msg,
                             Toast.LENGTH_SHORT).show();

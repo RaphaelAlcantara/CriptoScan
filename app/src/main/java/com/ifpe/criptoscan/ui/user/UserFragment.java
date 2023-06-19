@@ -30,7 +30,18 @@ public class UserFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            String userEmail = user.getEmail();
+            TextView emailTextView = binding.emailCliente; // Substitua pelo ID correto do seu TextView
+            emailTextView.setText(userEmail);
+        }
+
+
         return binding.getRoot();
+
 
 
 
