@@ -2,6 +2,7 @@ package com.ifpe.criptoscan;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -20,8 +21,8 @@ public class FirebaseAuthListener implements FirebaseAuth.AuthStateListener {
         if ((user != null) && !(activity instanceof NAV)) {
             intent = new Intent(activity, NAV.class);
         }
-        if ((user == null) && (activity instanceof NAV)) {
-            intent = new Intent(activity, MainActivity.class);
+        if ((user == null) && (activity instanceof MainActivity)) {
+            intent = new Intent(activity, NAV.class);
         }
         if (intent != null) {
             activity.startActivity(intent);

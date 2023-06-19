@@ -1,6 +1,8 @@
 package com.ifpe.criptoscan;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -11,6 +13,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.ifpe.criptoscan.databinding.ActivityNavBinding;
 
 public class NAV extends AppCompatActivity {
@@ -44,5 +48,13 @@ public class NAV extends AppCompatActivity {
         //hide action bar
         getSupportActionBar().hide();
     }
-
+    public void buttonSignOutClick(View view) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            mAuth.signOut();
+        } else {
+            Toast.makeText(NAV.this, "Erro!", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
