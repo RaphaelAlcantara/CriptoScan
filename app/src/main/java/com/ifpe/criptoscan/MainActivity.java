@@ -34,17 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        fbAuth.addAuthStateListener(authListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        fbAuth.removeAuthStateListener(authListener);
-    }
 
     public void Cadastrar(View view) {
         Intent intent = new Intent(this,CadastroActivity.class);
