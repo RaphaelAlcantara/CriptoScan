@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.ifpe.criptoscan.model.CriptoMoeda;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,11 +51,11 @@ public class TopCripto {
 
     public void processCryptoData(JSONObject response) {
         try {
+            List<CriptoMoeda> list = new ArrayList<>();
             JSONArray data = response.getJSONArray("Data");
-
             // Verificar se há pelo menos 5 elementos no array
-            if (data.length() >= 5) {
-                JSONObject coin1 = data.getJSONObject(0);
+            for(int i=0;i<data.length();i++) {
+                JSONObject coin1 = data.getJSONObject(i);
                 JSONObject coinInfo1 = coin1.getJSONObject("CoinInfo");
                 JSONObject display1 = coin1.getJSONObject("DISPLAY");
                 String coinName1 = coinInfo1.getString("Name");
@@ -62,82 +63,18 @@ public class TopCripto {
                 String price1 = display1.getJSONObject("BRL").getString("PRICE");
                 String variant1 = display1.getJSONObject("BRL").getString("CHANGEPCT24HOUR");
                 String MKTCAP1 = display1.getJSONObject("BRL").getString("MKTCAP");
-
-                JSONObject coin2 = data.getJSONObject(1);
-                JSONObject coinInfo2 = coin2.getJSONObject("CoinInfo");
-                JSONObject display2 = coin2.getJSONObject("DISPLAY");
-                String coinName2 = coinInfo2.getString("Name");
-                String coinFullName2 = coinInfo2.getString("FullName");
-                String price2 = display2.getJSONObject("BRL").getString("PRICE");
-                String variant2 = display2.getJSONObject("BRL").getString("CHANGEPCT24HOUR");
-                String MKTCAP2 = display2.getJSONObject("BRL").getString("MKTCAP");
-
-                JSONObject coin3 = data.getJSONObject(2);
-                JSONObject coinInfo3 = coin3.getJSONObject("CoinInfo");
-                JSONObject display3 = coin3.getJSONObject("DISPLAY");
-                String coinName3 = coinInfo3.getString("Name");
-                String coinFullName3 = coinInfo3.getString("FullName");
-                String price3 = display3.getJSONObject("BRL").getString("PRICE");
-                String variant3 = display3.getJSONObject("BRL").getString("CHANGEPCT24HOUR");
-                String MKTCAP3 = display3.getJSONObject("BRL").getString("MKTCAP");
-
-                JSONObject coin4 = data.getJSONObject(3);
-                JSONObject coinInfo4 = coin4.getJSONObject("CoinInfo");
-                JSONObject display4 = coin4.getJSONObject("DISPLAY");
-                String coinName4 = coinInfo4.getString("Name");
-                String coinFullName4 = coinInfo4.getString("FullName");
-                String price4 = display4.getJSONObject("BRL").getString("PRICE");
-                String variant4 = display4.getJSONObject("BRL").getString("CHANGEPCT24HOUR");
-                String MKTCAP4 = display4.getJSONObject("BRL").getString("MKTCAP");
-
-                JSONObject coin5 = data.getJSONObject(4);
-                JSONObject coinInfo5 = coin5.getJSONObject("CoinInfo");
-                JSONObject display5 = coin5.getJSONObject("DISPLAY");
-                String coinName5 = coinInfo5.getString("Name");
-                String coinFullName5 = coinInfo5.getString("FullName");
-                String price5 = display5.getJSONObject("BRL").getString("PRICE");
-                String variant5 = display5.getJSONObject("BRL").getString("CHANGEPCT24HOUR");
-                String MKTCAP5 = display5.getJSONObject("BRL").getString("MKTCAP");
-
+                CriptoMoeda cpr = new CriptoMoeda(coinName1,coinFullName1,price1,variant1,MKTCAP1);
+                list.add(cpr);
+            }
 
                 // Atribuir os valores aos restantes das variáveis (coin3, coin4, coin5)
 
                 // Chamar o método onCryptoDataReceived do ouvinte
                 if (cryptoDataListener != null) {
-                    cryptoDataListener.onCryptoDataReceived(
-                            coinName1,
-                            coinFullName1,
-                            price1,
-                            variant1,
-                            MKTCAP1,
-
-                            coinName2,
-                            coinFullName2,
-                            price2,
-                            variant2,
-                            MKTCAP2,
-
-                            coinName3,
-                            coinFullName3,
-                            price3,
-                            variant3,
-                            MKTCAP3,
-
-                            coinName4,
-                            coinFullName4,
-                            price4,
-                            variant4,
-                            MKTCAP4,
-
-                            coinName5,
-                            coinFullName5,
-                            price5,
-                            variant5,
-                            MKTCAP5);
+                    cryptoDataListener.onCryptoDataReceived(list);
 
                     // Chamar o método onCryptoDataReceived para os restantes das variáveis
                 }
-            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

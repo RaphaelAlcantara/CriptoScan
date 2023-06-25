@@ -22,6 +22,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ifpe.criptoscan.api.CryptoDataListener;
 import com.ifpe.criptoscan.api.TopCripto;
 import com.ifpe.criptoscan.databinding.FragmentHomeBinding;
+import com.ifpe.criptoscan.model.CriptoMoeda;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment implements CryptoDataListener {
 
@@ -57,99 +60,31 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
     }
 
     @Override
-    public void onCryptoDataReceived(String coinName1,
-                                     String coinFullName1,
-                                     String price1,
-                                     String variant1,
-                                     String MKTCAP1,
-                                     String coinName2,
-                                     String coinFullName2,
-                                     String price2,
-                                     String variant2,
-                                     String MKTCAP2,
-                                     String coinName3,
-                                     String coinFullName3,
-                                     String price3,
-                                     String variant3,
-                                     String MKTCAP3,
-                                     String coinName4,
-                                     String coinFullName4,
-                                     String price4,
-                                     String variant4,
-                                     String MKTCAP4,
-                                     String coinName5,
-                                     String coinFullName5,
-                                     String price5,
-                                     String variant5,
-                                     String MKTCAP5)
+    public void onCryptoDataReceived(List<CriptoMoeda> crypto)
     {
-
-
-        this.binding.coinName1.setText(coinName1);
-        this.binding.price1.setText(price1);
-
-        this.binding.variant1.setText(variant1 + "%");
-        if (variant1.contains("-")) {
-            this.binding.variant1.setTextColor(Color.parseColor("#FF0000"));
-        } else {
-            this.binding.variant1.setTextColor(Color.parseColor("#00FF00"));
+        TableLayout tableLayout = this.binding.tableCriptoPopulares;
+        for(CriptoMoeda c : crypto)
+        {
+            TableRow row = new TableRow(getActivity());
+            TextView coinName = new TextView(getActivity());
+            coinName.setText(c.getName());
+            TextView price = new TextView(getActivity());
+            price.setText(c.getPrice());
+            TextView variant = new TextView(getActivity());
+            if (c.getVariant().contains("-")) {
+                variant.setTextColor(Color.parseColor("#FF0000"));
+            } else {
+                variant.setTextColor(Color.parseColor("#00FF00"));
+            }
+            variant.setText(c.getVariant());
+            TextView MKTCAP = new TextView(getActivity());
+            MKTCAP.setText(c.getMKTCAP());
+            row.addView(coinName);
+            row.addView(price);
+            row.addView(variant);
+            row.addView(MKTCAP);
+            tableLayout.addView(row);
         }
-
-        this.binding.MKTCAP1.setText(MKTCAP1);
-
-
-        this.binding.coinName2.setText(coinName2);
-        this.binding.price2.setText(price2);
-
-        this.binding.variant2.setText(variant2 + "%");
-        if (variant2.contains("-")) {
-            this.binding.variant2.setTextColor(Color.parseColor("#FF0000"));
-        } else {
-            this.binding.variant2.setTextColor(Color.parseColor("#00FF00"));
-        }
-
-        this.binding.MKTCAP2.setText(MKTCAP2);
-
-        this.binding.coinName3.setText(coinName3);
-        this.binding.price3.setText(price3);
-
-        this.binding.variant3.setText(variant3 + "%");
-        if (variant3.contains("-")) {
-            this.binding.variant3.setTextColor(Color.parseColor("#FF0000"));
-        } else {
-            this.binding.variant3.setTextColor(Color.parseColor("#00FF00"));
-        }
-
-        this.binding.MKTCAP3.setText(MKTCAP3);
-
-
-        this.binding.coinName4.setText(coinName4);
-        this.binding.price4.setText(price4);
-
-        this.binding.variant4.setText(variant4 + "%");
-        if (variant4.contains("-")) {
-            this.binding.variant4.setTextColor(Color.parseColor("#FF0000"));
-        } else {
-            this.binding.variant4.setTextColor(Color.parseColor("#00FF00"));
-        }
-
-        this.binding.MKTCAP4.setText(MKTCAP4);
-
-
-        this.binding.coinName5.setText(coinName5);
-        this.binding.price5.setText(price5);
-
-        this.binding.variant5.setText(variant5 + "%");
-        if (variant5.contains("-")) {
-            this.binding.variant5.setTextColor(Color.parseColor("#FF0000"));
-        } else {
-            this.binding.variant5.setTextColor(Color.parseColor("#00FF00"));
-        }
-
-        this.binding.MKTCAP5.setText(MKTCAP5);
-
-
-
     }
 
 
