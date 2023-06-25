@@ -2,6 +2,7 @@ package com.ifpe.criptoscan;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class CryptoAdapter extends ArrayAdapter<CriptoMoeda> {
 
         TextView criptoName;
         TextView criptoInfo;
+        TextView criptoPrice;
         NetworkImageView imageView;
     }
     private CriptoMoeda [] moedas;
@@ -50,13 +52,24 @@ public class CryptoAdapter extends ArrayAdapter<CriptoMoeda> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             listItem = inflater.inflate(R.layout.listcripto, null, true);
             holder = new ViewHolder();
-            holder.criptoName.setText(moedas[position].getName());
-            holder.criptoInfo.setText(moedas[position].getPrice());
-            holder.imageView.setImageUrl(moedas[position].getImageURL(), this.loader);
+            holder.criptoName= listItem.findViewById(R.id.cripto_name);
+            holder.criptoPrice = listItem.findViewById(R.id.cripto_price);
+            holder.criptoInfo= listItem.findViewById(R.id.cripto_info);
+            holder.imageView = listItem.findViewById(R.id.cripto_image);
+            listItem.setTag(holder);
         } else {
-            final CriptoMoeda moeda_aux = moedas[position];
-            final NetworkImageView image_aux = holder.imageView;
+            listItem = convertView;
+            holder =(ViewHolder)convertView.getTag();
         }
+        holder.criptoName.setText(moedas[position].getName());
+        holder.criptoPrice.setText(moedas[position].getPrice());
+        if (moedas[position].getVariant().contains("-")) {
+            holder.criptoInfo.setTextColor(Color.parseColor("#FF0000"));
+        } else {
+            holder.criptoInfo.setTextColor(Color.parseColor("#00FF00"));
+        }
+        holder.criptoInfo.setText(moedas[position].getVariant());
+        holder.imageView.setImageUrl(moedas[position].getImageURL(), this.loader);
         return listItem;
     }
 }

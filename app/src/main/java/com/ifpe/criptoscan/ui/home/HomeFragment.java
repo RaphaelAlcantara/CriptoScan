@@ -89,11 +89,12 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
 
     @Override
     public void onCryptoListDataReceived(List<CriptoMoeda> newCrypto) {
-        CriptoMoeda [] moedas = newCrypto.stream().toArray(CriptoMoeda[]::new);
+        CriptoMoeda[] moedas = new CriptoMoeda[newCrypto.size()];
+        newCrypto.toArray(moedas);
         this.queue = Volley.newRequestQueue(getActivity());
         ListView listView = binding.listView;
-        //listView.setAdapter(new CryptoAdapter(getActivity(),
-              //  R.layout.listcripto, moedas, queue));
+        listView.setAdapter(new CryptoAdapter(getActivity(),
+                R.layout.listcripto, moedas, queue));
     }
 
 

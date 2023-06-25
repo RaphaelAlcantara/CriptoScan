@@ -5,11 +5,17 @@
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/cripto_image"
         android:layout_weight="1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
     <TextView
         android:id="@+id/cripto_name"
         android:textSize="14pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"/>
+    <TextView
+        android:id="@+id/cripto_price"
+        android:textSize="10pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
