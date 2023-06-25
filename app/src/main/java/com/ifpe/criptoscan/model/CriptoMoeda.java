@@ -6,13 +6,16 @@ public class CriptoMoeda {
     private String price;
     private String variant;
     private String MKTCAP;
+    private String imageURL;
 
-    public CriptoMoeda(String name, String fullName, String price, String variant, String MKTCAP) {
+    public CriptoMoeda(String name, String fullName, String price,
+                       String variant, String MKTCAP, String imageURL) {
         this.name = name;
         this.fullName = fullName;
         this.price = price;
         this.variant = variant;
         this.MKTCAP = MKTCAP;
+        this.imageURL = imageURL;
     }
 
     public String getName() {
@@ -53,5 +56,13 @@ public class CriptoMoeda {
 
     public void setMKTCAP(String MKTCAP) {
         this.MKTCAP = MKTCAP;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

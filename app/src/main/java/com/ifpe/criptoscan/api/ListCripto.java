@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopCripto {
+public class ListCripto{
     private Context context;
 
     private CryptoDataListener cryptoDataListener;
@@ -25,12 +25,12 @@ public class TopCripto {
 
 
 
-    public TopCripto(Context context) {
+    public ListCripto(Context context) {
         this.context = context;
     }
 
     public void fetchCryptoData() {
-        String url = "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=5&tsym=BRL&api_key=dc2f04ccfc6ba0e5846f74975068aef352459275defb331371e7e184459796fa";
+        String url = "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=9&tsym=BRL&api_key=dc2f04ccfc6ba0e5846f74975068aef352459275defb331371e7e184459796fa";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -68,14 +68,14 @@ public class TopCripto {
                 list.add(cpr);
             }
 
-                // Atribuir os valores aos restantes das variáveis (coin3, coin4, coin5)
+            // Atribuir os valores aos restantes das variáveis (coin3, coin4, coin5)
 
-                // Chamar o método onCryptoDataReceived do ouvinte
-                if (cryptoDataListener != null) {
-                    cryptoDataListener.onCryptoTopDataReceived(list);
+            // Chamar o método onCryptoDataReceived do ouvinte
+            if (cryptoDataListener != null) {
+                cryptoDataListener.onCryptoListDataReceived(list);
 
-                    // Chamar o método onCryptoDataReceived para os restantes das variáveis
-                }
+                // Chamar o método onCryptoDataReceived para os restantes das variáveis
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -85,9 +85,4 @@ public class TopCripto {
     public void setCryptoDataListener(CryptoDataListener listener) {
         this.cryptoDataListener = listener;
     }
-
-
-
-
-
 }

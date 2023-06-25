@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -19,7 +20,13 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
+import com.ifpe.criptoscan.CryptoAdapter;
+import com.ifpe.criptoscan.R;
 import com.ifpe.criptoscan.api.CryptoDataListener;
+import com.ifpe.criptoscan.api.ListCripto;
 import com.ifpe.criptoscan.api.TopCripto;
 import com.ifpe.criptoscan.databinding.FragmentHomeBinding;
 import com.ifpe.criptoscan.model.CriptoMoeda;
@@ -29,23 +36,13 @@ import java.util.List;
 public class HomeFragment extends Fragment implements CryptoDataListener {
 
     private FragmentHomeBinding binding;
-
-    private TextView coinName1, coinName2, coinName3, coinName4, coinName5;
-
-    private TextView coinFullName1, coinFullName2, coinFullName3, coinFullName4, coinFullName5;
-    private TextView price1, price2, price3, price4, price5;
-
-    private TextView variant1, variant2, variant3, variant4, variant5;
-
-    private TextView MKTCAP1, MKTCAP2, MKTCAP3, MKTCAP4, MKTCAP5;
-
-
-
+    private RequestQueue queue;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-
-
+        ListCripto listCripto = new ListCripto(getContext());
+        listCripto.setCryptoDataListener(this);
+        listCripto.fetchCryptoData();
         TopCripto topCripto = new TopCripto(getContext());
         topCripto.setCryptoDataListener(this);
         topCripto.fetchCryptoData();
@@ -60,7 +57,7 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
     }
 
     @Override
-    public void onCryptoDataReceived(List<CriptoMoeda> crypto)
+    public void onCryptoTopDataReceived(List<CriptoMoeda> crypto)
     {
         TableLayout tableLayout = this.binding.tableCriptoPopulares;
         for(CriptoMoeda c : crypto)
@@ -70,6 +67,7 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
             coinName.setText(c.getName());
             TextView price = new TextView(getActivity());
             price.setText(c.getPrice());
+            price.setPadding(20,0,0,0);
             TextView variant = new TextView(getActivity());
             if (c.getVariant().contains("-")) {
                 variant.setTextColor(Color.parseColor("#FF0000"));
@@ -77,14 +75,25 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
                 variant.setTextColor(Color.parseColor("#00FF00"));
             }
             variant.setText(c.getVariant());
+            variant.setPadding(20,0,0,0);
             TextView MKTCAP = new TextView(getActivity());
             MKTCAP.setText(c.getMKTCAP());
+            MKTCAP.setPadding(20,0,0,0);
             row.addView(coinName);
             row.addView(price);
             row.addView(variant);
             row.addView(MKTCAP);
             tableLayout.addView(row);
         }
+    }
+
+    @Override
+    public void onCryptoListDataReceived(List<CriptoMoeda> newCrypto) {
+        CriptoMoeda [] moedas = newCrypto.stream().toArray(CriptoMoeda[]::new);
+        this.queue = Volley.newRequestQueue(getActivity());
+        ListView listView = binding.listView;
+        //listView.setAdapter(new CryptoAdapter(getActivity(),
+              //  R.layout.listcripto, moedas, queue));
     }
 
 
