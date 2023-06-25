@@ -8,7 +8,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.ifpe.criptoscan.model.User;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,20 +52,35 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(login, passwd)
                 .addOnCompleteListener(this, task -> {
-                    String msg;
                     if(task.isSuccessful())
                     {
-                        msg="Login efetuado com sucesso!";
-                        Intent itent = new Intent(this, NAV.class);
-                        startActivity(itent);
-
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
+                        mDatabase.child(mAuth.getCurrentUser().getUid()).get()
+                                .addOnCompleteListener(
+                                        task1 -> {
+                                    User user=null;
+                                    String msg;
+                                    if(task1.isSuccessful())
+                                    {
+                                        user = task1.getResult().getValue(User.class);
+                                        msg="Login efetuado com sucesso!" +
+                                                "Usuario: "+user.getName() ;
+                                        Intent itent = new Intent(this, NAV.class);
+                                        startActivity(itent);
+                                    }
+                                    else
+                                    {
+                                        msg="Login inválido!";
+                                    }
+                                    Toast.makeText(MainActivity.this, msg,
+                                            Toast.LENGTH_SHORT).show();
+                                });
                     }
                     else
                     {
-                        msg="Login inválido!";
+                        Toast.makeText(MainActivity.this, "Dados Invalidos!",
+                                Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(MainActivity.this, msg,
-                            Toast.LENGTH_SHORT).show();
                 });
 
     }
