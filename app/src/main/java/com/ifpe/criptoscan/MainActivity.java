@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ifpe.criptoscan.model.User;
+import com.ifpe.criptoscan.repositorios.Repositorio;
 
 
 public class MainActivity extends AppCompatActivity {
