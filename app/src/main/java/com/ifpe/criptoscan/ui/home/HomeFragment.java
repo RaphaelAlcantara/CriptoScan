@@ -14,16 +14,20 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.ifpe.criptoscan.CryptoAdapter;
+import com.ifpe.criptoscan.NAV;
 import com.ifpe.criptoscan.R;
 import com.ifpe.criptoscan.api.CryptoDataListener;
 import com.ifpe.criptoscan.api.ListCripto;
@@ -37,22 +41,25 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
 
     private FragmentHomeBinding binding;
     private RequestQueue queue;
+    ListView listView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        listView= binding.listView;
+        this.queue = Volley.newRequestQueue(getActivity());
         ListCripto listCripto = new ListCripto(getContext());
         listCripto.setCryptoDataListener(this);
         listCripto.fetchCryptoData();
         TopCripto topCripto = new TopCripto(getContext());
         topCripto.setCryptoDataListener(this);
         topCripto.fetchCryptoData();
-
         return binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Volley.newRequestQueue(getContext()).stop();
         binding = null;
     }
 
@@ -91,10 +98,14 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
     public void onCryptoListDataReceived(List<CriptoMoeda> newCrypto) {
         CriptoMoeda[] moedas = new CriptoMoeda[newCrypto.size()];
         newCrypto.toArray(moedas);
-        this.queue = Volley.newRequestQueue(getActivity());
-        ListView listView = binding.listView;
         listView.setAdapter(new CryptoAdapter(getActivity(),
                 R.layout.listcripto, moedas, queue));
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.navigation_home,
+                    CoinDetailsFragment.newInstance(moedas[position])).commitNow();
+        });
     }
 
 

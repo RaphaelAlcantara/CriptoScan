@@ -1,6 +1,8 @@
 package com.ifpe.criptoscan.model;
 
-public class CriptoMoeda {
+import java.io.Serializable;
+
+public class CriptoMoeda implements Serializable {
     private String name;
     private String fullName;
     private String price;
@@ -9,7 +11,7 @@ public class CriptoMoeda {
     private String imageURL;
 
     public CriptoMoeda(String name, String fullName, String price,
-                       String variant, String MKTCAP, String imageURL) {
+                       String variant, String MKTCAP, String imageURL){
         this.name = name;
         this.fullName = fullName;
         this.price = price;

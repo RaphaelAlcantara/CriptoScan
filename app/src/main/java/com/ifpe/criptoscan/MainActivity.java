@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
                                         user = task1.getResult().getValue(User.class);
                                         msg="Login efetuado com sucesso!" +
                                                 "Usuario: "+user.getName() ;
-                                        Intent itent = new Intent(this, NAV.class);
-                                        startActivity(itent);
+                                        Intent intent = new Intent(this, NAV.class);
+                                        startActivity(intent);
                                     }
                                     else
                                     {

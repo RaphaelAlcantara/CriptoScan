@@ -30,7 +30,7 @@ public class ListCripto{
     }
 
     public void fetchCryptoData() {
-        String url = "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=9&tsym=BRL&api_key=dc2f04ccfc6ba0e5846f74975068aef352459275defb331371e7e184459796fa";
+        String url = "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=12&tsym=BRL&api_key=dc2f04ccfc6ba0e5846f74975068aef352459275defb331371e7e184459796fa";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
