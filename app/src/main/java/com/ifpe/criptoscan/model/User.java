@@ -14,6 +14,8 @@ public class User implements Serializable {
     private List<Alerta> alertas;
 
     public User() {
+        this.favoritos = new ArrayList<>();
+        this.alertas = new ArrayList<>();
     }
 
     public User(String name, String email) {

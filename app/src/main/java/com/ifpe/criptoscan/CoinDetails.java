@@ -1,17 +1,26 @@
 package com.ifpe.criptoscan;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.LruCache;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mikephil.charting.charts.LineChart;
@@ -28,10 +37,15 @@ import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ifpe.criptoscan.api.ChartCripto;
 import com.ifpe.criptoscan.api.CryptoData;
 import com.ifpe.criptoscan.api.CryptoDataListener;
 import com.ifpe.criptoscan.model.CriptoMoeda;
+import com.ifpe.criptoscan.model.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,12 +56,18 @@ import java.util.TimeZone;
 public class CoinDetails extends AppCompatActivity implements CryptoDataListener {
 
     private CriptoMoeda moeda;
+    private NetworkImageView imageView;
     private LineChart chart;
     private String resposta;
+    private User user;
+    private RequestQueue queue;
+    private ImageLoader loader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_details);
+        this.queue = Volley.newRequestQueue(this);
         Intent intent = getIntent();
         resposta = intent.getStringExtra("moeda");
         moeda = (CriptoMoeda) intent.getSerializableExtra("classe");
@@ -58,8 +78,54 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
         ChartCripto cryptoData = new ChartCripto(getApplicationContext());
         cryptoData.setCryptoDataListener(this);
         cryptoData.fetchCryptoData(moeda.getName());
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = firebaseAuth.getCurrentUser();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        mDatabase.child(mUser.getUid()).get()
+                .addOnCompleteListener(
+                        task1 -> {
+                            String msg;
+                            if(task1.isSuccessful())
+                            {
+                                user = task1.getResult().getValue(User.class);
+                            }
+                        });
+        this.loader = new ImageLoader(queue, new ImageLoader.ImageCache() {
+            private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
+            public void putBitmap(String url, Bitmap bitmap) { mCache.put(url, bitmap); }
+            public Bitmap getBitmap(String url) { return mCache.get(url); }
+        });
+        imageView = findViewById(R.id.coindetails_image);
+        imageView.setImageUrl(moeda.getImageURL(), loader);
+    }
 
-        //setData(100, 50);
+    public void addFavorito(View view)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Adicionar aos favoritos?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        user.getFavoritos().add(moeda);
+                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                        DatabaseReference drUsers = FirebaseDatabase.
+                                getInstance().getReference("users");
+                        drUsers.child(mAuth.getCurrentUser().getUid()).setValue(user)
+                                .addOnCompleteListener(task -> {
+                                    if(task.isSuccessful())
+                                    {
+                                        Toast.makeText(CoinDetails.this, moeda.getName()+" -  Adicionado aos favoritos",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                })
+                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create().show();
     }
 
     @Override

@@ -6,12 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".CoinDetails">
-    <TextView
-        android:id="@+id/teste"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TESTE"
-       />
+        android:layout_height="wrap_content">
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/coindetails_image"
+            android:layout_gravity="left"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:id="@+id/teste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40dp"
+            android:text="TESTE"
+            />
+    </LinearLayout>
+
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
@@ -27,7 +39,7 @@
         <Button
             android:id="@+id/button_favoritos"
             android:layout_width="150dp"
-
+            android:onClick="addFavorito"
             android:text="Favoritar"/>
         <Button
             android:id="@+id/button_alertas"

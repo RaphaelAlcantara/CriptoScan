@@ -53,7 +53,7 @@ public class ChartCripto {
         try {
             List<String[]> list = new ArrayList<>();
             JSONObject dataObject = response.getJSONObject("Data");
-            System.out.println(dataObject);
+            //System.out.println(dataObject);
             JSONArray data = dataObject.getJSONArray("Data");
             for(int i=0;i<data.length();i++) {
                 String moeda[] = new String[2];

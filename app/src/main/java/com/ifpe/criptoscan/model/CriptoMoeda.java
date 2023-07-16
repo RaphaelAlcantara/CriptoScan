@@ -20,6 +20,9 @@ public class CriptoMoeda implements Serializable {
         this.imageURL = imageURL;
     }
 
+    public CriptoMoeda() {
+    }
+
     public String getName() {
         return name;
     }
