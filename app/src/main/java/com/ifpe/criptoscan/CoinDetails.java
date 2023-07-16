@@ -18,6 +18,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -93,17 +94,15 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
         dataSet.setValueTextColor(Color.BLACK);
 
         LineData lineData = new LineData(dataSet);
-        chart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return dateTime[(int) value];
-            }
-        });
+        chart.getXAxis().setLabelCount(8);
+        chart.getXAxis().setValueFormatter((value, axis) -> dateTime[(int) value]);
+        chart.getAxisRight().setEnabled(false);
         // Configurações do gráfico
         Description description = new Description();
         description.setText("Variações da moeda");
         chart.setDescription(description);
         chart.setData(lineData);
+        chart.getLineData().setValueTextSize(5f);
         chart.invalidate(); // Atualiza o gráfico
     }
 }
