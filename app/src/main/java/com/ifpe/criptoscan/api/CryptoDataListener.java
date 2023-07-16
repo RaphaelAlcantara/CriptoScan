@@ -8,7 +8,7 @@ public interface CryptoDataListener {
 
     void onCryptoTopDataReceived(List<CriptoMoeda> crypto);
     void onCryptoListDataReceived(List<CriptoMoeda> newCrypto);
-
+    void onCryptoChartDataReceived(List<String[]> cryptoData);
 
 
 }

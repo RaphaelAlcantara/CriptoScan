@@ -11,7 +11,17 @@
         android:name="com.ifpe.criptoscan.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home"
         android:label="@string/title_home"
-        />
+        >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_coin_details"
+            app:destination="@id/navigation_coin_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_coin_details"
+        android:name="com.ifpe.criptoscan.ui.home.CoinDetailsFragment"
+        android:label="Detalhes"
+        tools:layout="@layout/fragment_coin_details"
+        app:graph="@navigation/mobile_navigation"/>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -31,11 +41,7 @@
         android:name="com.ifpe.criptoscan.ui.user.UserFragment"
         android:label="Perfil"
         tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/navigation_coin_details"
-        android:name="com.ifpe.criptoscan.ui.home.CoinDetailsFragment"
-        android:label="Detalhes"
-        tools:layout="@layout/fragment_coin_details"/>
+
 
 
 </navigation>

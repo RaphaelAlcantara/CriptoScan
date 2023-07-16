@@ -12,11 +12,14 @@
         android:theme="@style/Theme.CriptoScan"
         tools:targetApi="31">
         <activity
+            android:name=".CoinDetails"
+            android:exported="false" />
+        <activity
             android:name=".CadastroActivity"
             android:exported="false" />
         <activity
             android:name=".NAV"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

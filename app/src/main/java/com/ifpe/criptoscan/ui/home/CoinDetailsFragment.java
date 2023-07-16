@@ -3,6 +3,10 @@ package com.ifpe.criptoscan.ui.home;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.FragmentNavigator;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +29,8 @@ public class CoinDetailsFragment extends Fragment {
     CriptoMoeda moeda;
     private FragmentHomeBinding binding;
     private RequestQueue queue;
+    private NavHostFragment navFragment;
+    private NavController navController;
 
     public CoinDetailsFragment() {
         // Required empty public constructor
@@ -43,6 +49,11 @@ public class CoinDetailsFragment extends Fragment {
         if (getArguments() != null) {
             this.moeda =  (CriptoMoeda) getArguments().get("moeda");
         }
+        navFragment = (NavHostFragment) getActivity().getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment_activity_nav);
+        //navController = navFragment.getNavController();
+        //NavigationUI.setupActionBarWithNavController(,navController);
+
     }
 
     @Override

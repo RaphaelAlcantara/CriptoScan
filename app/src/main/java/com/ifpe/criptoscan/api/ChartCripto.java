@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListCripto{
+public class ChartCripto {
     private Context context;
 
     private CryptoDataListener cryptoDataListener;
@@ -25,13 +25,13 @@ public class ListCripto{
 
 
 
-    public ListCripto(Context context) {
+    public ChartCripto(Context context) {
         this.context = context;
     }
 
-    public void fetchCryptoData() {
-        String url = "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=11&tsym=BRL&api_key=dc2f04ccfc6ba0e5846f74975068aef352459275defb331371e7e184459796fa";
-
+    public void fetchCryptoData(String coinName) {
+        String url = "https://min-api.cryptocompare.com/data/v2/histohour?fsym="+coinName+
+                "&tsym=BRL&limit=24&api_key=dc2f04ccfc6ba0e5846f74975068aef352459275defb331371e7e184459796fa";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -51,30 +51,19 @@ public class ListCripto{
 
     public void processCryptoData(JSONObject response) {
         try {
-            List<CriptoMoeda> list = new ArrayList<>();
-            JSONArray data = response.getJSONArray("Data");
-            // Verificar se há pelo menos 5 elementos no array
+            List<String[]> list = new ArrayList<>();
+            JSONObject dataObject = response.getJSONObject("Data");
+            System.out.println(dataObject);
+            JSONArray data = dataObject.getJSONArray("Data");
             for(int i=0;i<data.length();i++) {
+                String moeda[] = new String[2];
                 JSONObject coin1 = data.getJSONObject(i);
-                JSONObject coinInfo1 = coin1.getJSONObject("CoinInfo");
-                JSONObject display1 = coin1.getJSONObject("DISPLAY");
-                String coinName1 = coinInfo1.getString("Name");
-                String coinFullName1 = coinInfo1.getString("FullName");
-                String imageURL = "https://www.cryptocompare.com"+coinInfo1.getString("ImageUrl");
-                String price1 = display1.getJSONObject("BRL").getString("PRICE");
-                String variant1 = display1.getJSONObject("BRL").getString("CHANGEPCT24HOUR");
-                String MKTCAP1 = display1.getJSONObject("BRL").getString("MKTCAP");
-                CriptoMoeda cpr = new CriptoMoeda(coinName1,coinFullName1,price1,variant1,MKTCAP1, imageURL);
-                list.add(cpr);
+                moeda[0] = coin1.getString("time");
+                moeda[1] = coin1.getString("open");
+                list.add(moeda);
             }
-
-            // Atribuir os valores aos restantes das variáveis (coin3, coin4, coin5)
-
-            // Chamar o método onCryptoDataReceived do ouvinte
             if (cryptoDataListener != null) {
-                cryptoDataListener.onCryptoListDataReceived(list);
-
-                // Chamar o método onCryptoDataReceived para os restantes das variáveis
+                cryptoDataListener.onCryptoChartDataReceived(list);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -85,4 +74,5 @@ public class ListCripto{
     public void setCryptoDataListener(CryptoDataListener listener) {
         this.cryptoDataListener = listener;
     }
+
 }

@@ -3,6 +3,7 @@ package com.ifpe.criptoscan.ui.home;
 import static android.app.ProgressDialog.show;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,10 +23,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ifpe.criptoscan.CoinDetails;
 import com.ifpe.criptoscan.CryptoAdapter;
 import com.ifpe.criptoscan.NAV;
 import com.ifpe.criptoscan.R;
@@ -101,11 +107,24 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
         listView.setAdapter(new CryptoAdapter(getActivity(),
                 R.layout.listcripto, moedas, queue));
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.navigation_home,
-                    CoinDetailsFragment.newInstance(moedas[position])).commitNow();
+            Bundle setClass = new Bundle();
+            CoinDetailsFragment coinDetailsFragment = CoinDetailsFragment.newInstance(moedas[position]);
+            setClass.putSerializable("moeda", moedas[position]);
+            /*NavController navController = Navigation.
+                    findNavController(requireActivity(), R.id.nav_host_fragment_activity_nav);
+            navController.navigate(R.id.action_navigation_home_to_navigation_coin_details);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .show(coinDetailsFragment).commit();*/
+            Intent intent = new Intent(getContext(), CoinDetails.class);
+            intent.putExtra("moeda", moedas[position].getName());
+            startActivity(intent);
+            return;
         });
+    }
+
+    @Override
+    public void onCryptoChartDataReceived(List<String[]> cryptoData) {
+
     }
 
 
