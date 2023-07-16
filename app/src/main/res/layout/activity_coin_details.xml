@@ -18,5 +18,23 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:columnCount="2"
+        android:rowCount="1">
+        <Button
+            android:id="@+id/button_favoritos"
+            android:layout_width="150dp"
+
+            android:text="Favoritar"/>
+        <Button
+            android:id="@+id/button_alertas"
+            android:layout_width="150dp"
+            android:layout_gravity="right"
+
+            android:text="Criar alerta"/>
+    </GridLayout>
 
 </LinearLayout>

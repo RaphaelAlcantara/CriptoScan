@@ -107,15 +107,16 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
         listView.setAdapter(new CryptoAdapter(getActivity(),
                 R.layout.listcripto, moedas, queue));
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Bundle setClass = new Bundle();
-            CoinDetailsFragment coinDetailsFragment = CoinDetailsFragment.newInstance(moedas[position]);
-            setClass.putSerializable("moeda", moedas[position]);
+            //Bundle setClass = new Bundle();
+            //CoinDetailsFragment coinDetailsFragment = CoinDetailsFragment.newInstance(moedas[position]);
+            //setClass.putSerializable("moeda", moedas[position]);
             /*NavController navController = Navigation.
                     findNavController(requireActivity(), R.id.nav_host_fragment_activity_nav);
             navController.navigate(R.id.action_navigation_home_to_navigation_coin_details);
             getActivity().getSupportFragmentManager().beginTransaction()
                     .show(coinDetailsFragment).commit();*/
             Intent intent = new Intent(getContext(), CoinDetails.class);
+            intent.putExtra("classe", moedas[position]);
             intent.putExtra("moeda", moedas[position].getName());
             startActivity(intent);
             return;

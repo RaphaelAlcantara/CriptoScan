@@ -1,6 +1,8 @@
 package com.ifpe.criptoscan.model;
 
-public class Alerta {
+import java.io.Serializable;
+
+public class Alerta implements Serializable {
     private CriptoMoeda coin;
     private double percent;
     private boolean downPrices;//false está subindo, true. .descendo;

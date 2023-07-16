@@ -50,13 +50,14 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
         setContentView(R.layout.activity_coin_details);
         Intent intent = getIntent();
         resposta = intent.getStringExtra("moeda");
+        moeda = (CriptoMoeda) intent.getSerializableExtra("classe");
         TextView t = findViewById(R.id.teste);
-        t.setText(resposta);
+        t.setText(moeda.getName());
         chart = findViewById(R.id.lineChart);
         chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         ChartCripto cryptoData = new ChartCripto(getApplicationContext());
         cryptoData.setCryptoDataListener(this);
-        cryptoData.fetchCryptoData(resposta);
+        cryptoData.fetchCryptoData(moeda.getName());
 
         //setData(100, 50);
     }
