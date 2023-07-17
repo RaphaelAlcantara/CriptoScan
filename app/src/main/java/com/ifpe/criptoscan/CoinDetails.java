@@ -13,7 +13,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.LruCache;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,11 +64,17 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
     private User user;
     private RequestQueue queue;
     private ImageLoader loader;
+    private Button favorito;
+    private Button alerta;
+    private int enableFav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_details);
+        enableFav=0;
+        favorito = findViewById(R.id.button_favoritos);
+        alerta = findViewById(R.id.button_alertas);
         this.queue = Volley.newRequestQueue(this);
         Intent intent = getIntent();
         resposta = intent.getStringExtra("moeda");
@@ -88,6 +96,16 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
                             if(task1.isSuccessful())
                             {
                                 user = task1.getResult().getValue(User.class);
+                                if(user.getFavoritos().contains(moeda))
+                                {
+                                    favorito.setText("Remover Favorito");
+                                    enableFav=1;
+                                }
+                                else{
+                                    favorito.setText("Adicionar Favorito");
+                                }
+                                favorito.setEnabled(true);
+                                alerta.setEnabled(true);
                             }
                         });
         this.loader = new ImageLoader(queue, new ImageLoader.ImageCache() {
@@ -97,23 +115,43 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
         });
         imageView = findViewById(R.id.coindetails_image);
         imageView.setImageUrl(moeda.getImageURL(), loader);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void addFavorito(View view)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Adicionar aos favoritos?")
+        String msg;
+        if(enableFav==0)
+        {
+            msg="Adicionar aos Favoritos?";
+        }
+        else {
+            msg="Remover dos favoritos?";
+        }
+        builder.setMessage(msg)
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        user.getFavoritos().add(moeda);
+                        String msgSaida;
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         DatabaseReference drUsers = FirebaseDatabase.
                                 getInstance().getReference("users");
+                        if (enableFav == 0) {
+                            user.getFavoritos().add(moeda);
+                            msgSaida=" - Adicionado aos favoritos";
+                            favorito.setText("Remover Favorito");
+                            enableFav=1;
+                        }
+                        else {
+                            user.getFavoritos().remove(moeda);
+                            msgSaida=" - Removido dos favoritos";
+                            favorito.setText("Adicionar Favorito");
+                            enableFav=0;
+                        }
                         drUsers.child(mAuth.getCurrentUser().getUid()).setValue(user)
                                 .addOnCompleteListener(task -> {
-                                    if(task.isSuccessful())
-                                    {
-                                        Toast.makeText(CoinDetails.this, moeda.getName()+" -  Adicionado aos favoritos",
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(CoinDetails.this, moeda.getName() + msgSaida,
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -171,5 +209,13 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
         chart.setData(lineData);
         chart.getLineData().setValueTextSize(5f);
         chart.invalidate(); // Atualiza o gráfico
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

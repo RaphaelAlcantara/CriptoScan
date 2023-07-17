@@ -1,6 +1,9 @@
 package com.ifpe.criptoscan.model;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 public class CriptoMoeda implements Serializable {
     private String name;
@@ -69,5 +72,13 @@ public class CriptoMoeda implements Serializable {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        CriptoMoeda aux = (CriptoMoeda) obj;
+        if(fullName.equals(aux.getFullName()) || name.equals(aux.getName()))
+            return true;
+        return false;
     }
 }

@@ -38,11 +38,13 @@
         android:rowCount="1">
         <Button
             android:id="@+id/button_favoritos"
+            android:enabled="false"
             android:layout_width="150dp"
             android:onClick="addFavorito"
             android:text="Favoritar"/>
         <Button
             android:id="@+id/button_alertas"
+            android:enabled="false"
             android:layout_width="150dp"
             android:layout_gravity="right"
 

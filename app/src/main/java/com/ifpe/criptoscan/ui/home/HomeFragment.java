@@ -58,6 +58,7 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
     private User user;
     private ListView favoritesView;
     private RecyclerView recyclerView;
+    private FavoritosAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -82,8 +83,16 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
                                 user = task1.getResult().getValue(User.class);
                                 CriptoMoeda[] moedas = new CriptoMoeda[user.getFavoritos().size()];
                                 user.getFavoritos().toArray(moedas);
-                                favoritesView.setAdapter(new FavoritosAdapter(getActivity(),
-                                        R.layout.listfavoritos, moedas, queue));
+                                adapter =new FavoritosAdapter(getActivity(),
+                                        R.layout.listfavoritos, moedas, queue);
+                                favoritesView.setAdapter(adapter);
+                                favoritesView.setOnItemClickListener((parent, view, position, id) -> {
+                                    Intent intent = new Intent(getContext(), CoinDetails.class);
+                                    intent.putExtra("classe", moedas[position]);
+                                    intent.putExtra("moeda", moedas[position].getName());
+                                    startActivity(intent);
+                                    return;
+                                });
                             }
                         });
         return binding.getRoot();
@@ -147,5 +156,38 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
 
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(user!=null)
+        {
+            if(adapter!=null)
+            {
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser mUser = firebaseAuth.getCurrentUser();
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
+                mDatabase.child(mUser.getUid()).get()
+                        .addOnCompleteListener(
+                                task1 -> {
+                                    String msg;
+                                    if(task1.isSuccessful())
+                                    {
+                                        user = task1.getResult().getValue(User.class);
+                                        CriptoMoeda[] moedas = new CriptoMoeda[user.getFavoritos().size()];
+                                        user.getFavoritos().toArray(moedas);
+                                        adapter =new FavoritosAdapter(getActivity(),
+                                                R.layout.listfavoritos, moedas, queue);
+                                        favoritesView.setAdapter(adapter);
+                                        favoritesView.setOnItemClickListener((parent, view, position, id) -> {
+                                            Intent intent = new Intent(getContext(), CoinDetails.class);
+                                            intent.putExtra("classe", moedas[position]);
+                                            intent.putExtra("moeda", moedas[position].getName());
+                                            startActivity(intent);
+                                            return;
+                                        });
+                                    }
+                                });
+            }
+        }
+    }
 }
