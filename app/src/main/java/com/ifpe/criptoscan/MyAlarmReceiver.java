@@ -37,27 +37,27 @@ public class MyAlarmReceiver extends BroadcastReceiver implements CryptoDataList
         this.context = context;
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser mUser = firebaseAuth.getCurrentUser();
+
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        mDatabase.child(mUser.getUid()).get()
-                .addOnCompleteListener(
-                        task1 -> {
-                            String msg;
-                            if(task1.isSuccessful())
-                            {
-                                user = task1.getResult().getValue(User.class);
-                                for(Alerta a : user.getAlertas())
-                                {
-                                    if(a.isAtivo())
-                                    {
-                                        CriptoOneData criptoOneData = new CriptoOneData(context, a);
-                                        criptoOneData.setCryptoDataListener(this);
-                                        criptoOneData.fetchCryptoData();
+        if(mUser.getUid()!=null) {
+            mDatabase.child(mUser.getUid()).get()
+                    .addOnCompleteListener(
+                            task1 -> {
+                                String msg;
+                                if (task1.isSuccessful()) {
+                                    user = task1.getResult().getValue(User.class);
+                                    for (Alerta a : user.getAlertas()) {
+                                        if (a.isAtivo()) {
+                                            CriptoOneData criptoOneData = new CriptoOneData(context, a);
+                                            criptoOneData.setCryptoDataListener(this);
+                                            criptoOneData.fetchCryptoData();
+                                        }
                                     }
                                 }
-                            }
-                        });
-        Intent serviceIntent = new Intent(context, AlarmesService.class);
-        ContextCompat.startForegroundService(context, serviceIntent);
+                            });
+            Intent serviceIntent = new Intent(context, AlarmesService.class);
+            ContextCompat.startForegroundService(context, serviceIntent);
+        }
     }
 
     @Override
