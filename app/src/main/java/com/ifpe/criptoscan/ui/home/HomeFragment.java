@@ -46,6 +46,7 @@ import com.ifpe.criptoscan.api.ListCripto;
 import com.ifpe.criptoscan.api.TopCripto;
 import com.ifpe.criptoscan.databinding.FragmentHomeBinding;
 import com.ifpe.criptoscan.model.CriptoMoeda;
+import com.ifpe.criptoscan.model.Notificacao;
 import com.ifpe.criptoscan.model.User;
 
 import java.util.List;
@@ -153,6 +154,11 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
 
     @Override
     public void onCryptoChartDataReceived(List<String[]> cryptoData) {
+
+    }
+
+    @Override
+    public void onCryptoOneSearch(Notificacao notificacao) {
 
     }
 

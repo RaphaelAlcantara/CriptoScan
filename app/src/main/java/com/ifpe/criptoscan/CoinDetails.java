@@ -42,6 +42,7 @@ import com.ifpe.criptoscan.api.ChartCripto;
 import com.ifpe.criptoscan.api.CryptoDataListener;
 import com.ifpe.criptoscan.model.Alerta;
 import com.ifpe.criptoscan.model.CriptoMoeda;
+import com.ifpe.criptoscan.model.Notificacao;
 import com.ifpe.criptoscan.model.User;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
         alerta = findViewById(R.id.button_alertas);
         this.queue = Volley.newRequestQueue(this);
         Intent intent = getIntent();
-        resposta = intent.getStringExtra("moeda");
+        //resposta = intent.getStringExtra("moeda");
         moeda = (CriptoMoeda) intent.getSerializableExtra("classe");
         TextView t = findViewById(R.id.teste);
         t.setText(moeda.getName());
@@ -273,6 +274,12 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
         chart.getLineData().setValueTextSize(5f);
         chart.invalidate(); // Atualiza o gráfico
     }
+
+    @Override
+    public void onCryptoOneSearch(Notificacao notificacao) {
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

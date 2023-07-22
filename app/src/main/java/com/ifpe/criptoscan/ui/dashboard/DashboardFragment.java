@@ -27,6 +27,9 @@ import com.ifpe.criptoscan.model.Alerta;
 import com.ifpe.criptoscan.model.CriptoMoeda;
 import com.ifpe.criptoscan.model.User;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
@@ -52,8 +55,9 @@ public class DashboardFragment extends Fragment {
                             if(task1.isSuccessful())
                             {
                                 user = task1.getResult().getValue(User.class);
-                                Alerta[] alertas = new Alerta[user.getAlertas().size()];
-                                user.getAlertas().toArray(alertas);
+                                List<Alerta> alertaList = user.getAlertas().stream().filter(e->e.isAtivo()==true).collect(Collectors.toList());
+                                Alerta[] alertas = new Alerta[alertaList.size()];
+                                alertaList.toArray(alertas);
                                 adapter =new AlertasAdapter(getActivity(),
                                         R.layout.listalertas, alertas, queue);
                                 alertasView.setAdapter(adapter);

@@ -1,5 +1,7 @@
 package com.ifpe.criptoscan.model;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class Alerta implements Serializable {
@@ -46,5 +48,15 @@ public class Alerta implements Serializable {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        Alerta aux = (Alerta) obj;
+        if(aux.getValor() == this.getValor() && aux.getCoin().getName()==this.getCoin().getName())
+        {
+            return true;
+        }
+        return false;
     }
 }

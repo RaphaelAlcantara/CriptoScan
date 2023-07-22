@@ -1,5 +1,6 @@
 package com.ifpe.criptoscan;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -8,6 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -28,6 +30,8 @@ public class NAV extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Intent serviceIntent = new Intent(this, AlarmesService.class);
+        ContextCompat.startForegroundService(this, serviceIntent);
 
         this.fbAuth = FirebaseAuth.getInstance();
         this.authListener = new FirebaseAuthListener(this);

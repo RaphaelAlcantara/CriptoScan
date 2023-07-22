@@ -12,10 +12,11 @@ public class User implements Serializable {
     private String email;
     private List<CriptoMoeda> favoritos;
     private List<Alerta> alertas;
-
+    private List<Notificacao> notificacoes;
     public User() {
         this.favoritos = new ArrayList<>();
         this.alertas = new ArrayList<>();
+        this.notificacoes = new ArrayList<>();
     }
 
     public User(String name, String email) {
@@ -23,6 +24,7 @@ public class User implements Serializable {
         this.email = email;
         this.favoritos = new ArrayList<>();
         this.alertas = new ArrayList<>();
+        this.notificacoes = new ArrayList<>();
     }
 
     public String getName() {
@@ -55,5 +57,13 @@ public class User implements Serializable {
 
     public void setAlertas(List<Alerta> alertas) {
         this.alertas = alertas;
+    }
+
+    public List<Notificacao> getNotificacoes() {
+        return notificacoes;
+    }
+
+    public void setNotificacoes(List<Notificacao> notificacoes) {
+        this.notificacoes = notificacoes;
     }
 }
