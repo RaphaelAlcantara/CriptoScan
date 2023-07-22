@@ -36,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
         this.fbAuth = FirebaseAuth.getInstance();
         this.authListener = new FirebaseAuthListener(this);
-
+        if(fbAuth.getCurrentUser()!=null)
+        {
+            Intent intent = new Intent(this, NAV.class);
+            startActivity(intent);
+        }
         setContentView(R.layout.activity_main);
     }
 
