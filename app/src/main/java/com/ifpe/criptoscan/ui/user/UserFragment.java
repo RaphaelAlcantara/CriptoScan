@@ -48,8 +48,10 @@ public class UserFragment extends Fragment {
                             if(task1.isSuccessful())
                             {
                                 user = task1.getResult().getValue(User.class);
+                                TextView nomeTextView = binding.nomeCliente; // Substitua pelo ID correto do seu TextView
+                                nomeTextView.setText(user.getName());
                                 TextView emailTextView = binding.emailCliente; // Substitua pelo ID correto do seu TextView
-                                emailTextView.setText(user.getName());
+                                emailTextView.setText(user.getEmail());
                             }
                         });
         return binding.getRoot();
