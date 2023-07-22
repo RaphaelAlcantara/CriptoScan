@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        fbAuth = FirebaseAuth.getInstance();
+        //fbAuth = FirebaseAuth.getInstance();
 //        authListener = new FirebaseAuthListener(this);
 //        setContentView(R.layout.activity_main);
 

@@ -39,7 +39,7 @@ public class MyAlarmReceiver extends BroadcastReceiver implements CryptoDataList
         FirebaseUser mUser = firebaseAuth.getCurrentUser();
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        if(mUser.getUid()!=null) {
+        if(mUser!=null) {
             mDatabase.child(mUser.getUid()).get()
                     .addOnCompleteListener(
                             task1 -> {
