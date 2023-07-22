@@ -82,18 +82,20 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
                             if(task1.isSuccessful())
                             {
                                 user = task1.getResult().getValue(User.class);
-                                CriptoMoeda[] moedas = new CriptoMoeda[user.getFavoritos().size()];
-                                user.getFavoritos().toArray(moedas);
-                                adapter =new FavoritosAdapter(getActivity(),
-                                        R.layout.listfavoritos, moedas, queue);
-                                favoritesView.setAdapter(adapter);
-                                favoritesView.setOnItemClickListener((parent, view, position, id) -> {
-                                    Intent intent = new Intent(getContext(), CoinDetails.class);
-                                    intent.putExtra("classe", moedas[position]);
-                                    intent.putExtra("moeda", moedas[position].getName());
-                                    startActivity(intent);
-                                    return;
-                                });
+                                if(user.getFavoritos()!=null) {
+                                    CriptoMoeda[] moedas = new CriptoMoeda[user.getFavoritos().size()];
+                                    user.getFavoritos().toArray(moedas);
+                                    adapter = new FavoritosAdapter(getActivity(),
+                                            R.layout.listfavoritos, moedas, queue);
+                                    favoritesView.setAdapter(adapter);
+                                    favoritesView.setOnItemClickListener((parent, view, position, id) -> {
+                                        Intent intent = new Intent(getContext(), CoinDetails.class);
+                                        intent.putExtra("classe", moedas[position]);
+                                        intent.putExtra("moeda", moedas[position].getName());
+                                        startActivity(intent);
+                                        return;
+                                    });
+                                }
                             }
                         });
         return binding.getRoot();
@@ -179,18 +181,20 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
                                     if(task1.isSuccessful())
                                     {
                                         user = task1.getResult().getValue(User.class);
-                                        CriptoMoeda[] moedas = new CriptoMoeda[user.getFavoritos().size()];
-                                        user.getFavoritos().toArray(moedas);
-                                        adapter =new FavoritosAdapter(getActivity(),
-                                                R.layout.listfavoritos, moedas, queue);
-                                        favoritesView.setAdapter(adapter);
-                                        favoritesView.setOnItemClickListener((parent, view, position, id) -> {
-                                            Intent intent = new Intent(getContext(), CoinDetails.class);
-                                            intent.putExtra("classe", moedas[position]);
-                                            intent.putExtra("moeda", moedas[position].getName());
-                                            startActivity(intent);
-                                            return;
-                                        });
+                                        if(user.getFavoritos()!=null) {
+                                            CriptoMoeda[] moedas = new CriptoMoeda[user.getFavoritos().size()];
+                                            user.getFavoritos().toArray(moedas);
+                                            adapter = new FavoritosAdapter(getActivity(),
+                                                    R.layout.listfavoritos, moedas, queue);
+                                            favoritesView.setAdapter(adapter);
+                                            favoritesView.setOnItemClickListener((parent, view, position, id) -> {
+                                                Intent intent = new Intent(getContext(), CoinDetails.class);
+                                                intent.putExtra("classe", moedas[position]);
+                                                intent.putExtra("moeda", moedas[position].getName());
+                                                startActivity(intent);
+                                                return;
+                                            });
+                                        }
                                     }
                                 });
             }
