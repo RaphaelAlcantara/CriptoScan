@@ -49,6 +49,7 @@ import com.ifpe.criptoscan.model.CriptoMoeda;
 import com.ifpe.criptoscan.model.Notificacao;
 import com.ifpe.criptoscan.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements CryptoDataListener {
@@ -60,9 +61,24 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
     private ListView favoritesView;
     private RecyclerView recyclerView;
     private FavoritosAdapter adapter;
+    private List<CriptoMoeda> listMoedas;
+    private SearchView searchView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        searchView = binding.searchView;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
+            }
+        });
         favoritesView = binding.listViewFavoritos;
         listView= binding.listView;
         this.queue = Volley.newRequestQueue(getActivity());
@@ -141,8 +157,30 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
 
     @Override
     public void onCryptoListDataReceived(List<CriptoMoeda> newCrypto) {
+        this.listMoedas = newCrypto;
         CriptoMoeda[] moedas = new CriptoMoeda[newCrypto.size()];
         newCrypto.toArray(moedas);
+        listView.setAdapter(new CryptoAdapter(getActivity(),
+                R.layout.listcripto, moedas, queue));
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(getContext(), CoinDetails.class);
+            intent.putExtra("classe", moedas[position]);
+            intent.putExtra("moeda", moedas[position].getName());
+            startActivity(intent);
+            return;
+        });
+    }
+    private void filter(String query) {
+        List<CriptoMoeda> filteredList = new ArrayList<>();
+
+        for (CriptoMoeda item : listMoedas) {
+            if (item.getName().contains(query.toUpperCase()) ||
+                item.getFullName().contains(query.toUpperCase())) {
+                filteredList.add(item);
+            }
+        }
+        CriptoMoeda[] moedas = new CriptoMoeda[filteredList.size()];
+        filteredList.toArray(moedas);
         listView.setAdapter(new CryptoAdapter(getActivity(),
                 R.layout.listcripto, moedas, queue));
         listView.setOnItemClickListener((parent, view, position, id) -> {
@@ -163,6 +201,7 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
     public void onCryptoOneSearch(Notificacao notificacao) {
 
     }
+
 
     @Override
     public void onResume() {
