@@ -30,7 +30,7 @@ public class ListCripto{
     }
 
     public void fetchCryptoData() {
-        String url = "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=30&tsym=BRL&api_key=dc2f04ccfc6ba0e5846f74975068aef352459275defb331371e7e184459796fa";
+        String url = "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=20&tsym=BRL&api_key=dc2f04ccfc6ba0e5846f74975068aef352459275defb331371e7e184459796fa";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -52,6 +52,7 @@ public class ListCripto{
     public void processCryptoData(JSONObject response) {
         try {
             List<CriptoMoeda> list = new ArrayList<>();
+            System.out.println(response);
             JSONArray data = response.getJSONArray("Data");
             // Verificar se há pelo menos 5 elementos no array
             for(int i=0;i<data.length();i++) {
