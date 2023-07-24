@@ -1,8 +1,14 @@
 package com.ifpe.criptoscan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +24,8 @@ import com.ifpe.criptoscan.repositorios.Repositorio;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final int PERMISSIONS_REQUEST_FOREGROUND_SERVICE = 1;
+    private static final int PERMISSIONS_REQUEST_BOOT_COMPLETED = 2;
     private TextView edEmail;
     private TextView edPassword;
 
@@ -89,6 +97,4 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
-
-
 }
