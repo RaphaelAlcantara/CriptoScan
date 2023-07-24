@@ -172,24 +172,25 @@ public class HomeFragment extends Fragment implements CryptoDataListener {
     }
     private void filter(String query) {
         List<CriptoMoeda> filteredList = new ArrayList<>();
-
-        for (CriptoMoeda item : listMoedas) {
-            if (item.getName().contains(query.toUpperCase()) ||
-                item.getFullName().contains(query.toUpperCase())) {
-                filteredList.add(item);
+        if (listMoedas != null) {
+            for (CriptoMoeda item : listMoedas) {
+                if (item.getName().contains(query.toUpperCase()) ||
+                        item.getFullName().contains(query.toUpperCase())) {
+                    filteredList.add(item);
+                }
             }
+            CriptoMoeda[] moedas = new CriptoMoeda[filteredList.size()];
+            filteredList.toArray(moedas);
+            listView.setAdapter(new CryptoAdapter(getActivity(),
+                    R.layout.listcripto, moedas, queue));
+            listView.setOnItemClickListener((parent, view, position, id) -> {
+                Intent intent = new Intent(getContext(), CoinDetails.class);
+                intent.putExtra("classe", moedas[position]);
+                intent.putExtra("moeda", moedas[position].getName());
+                startActivity(intent);
+                return;
+            });
         }
-        CriptoMoeda[] moedas = new CriptoMoeda[filteredList.size()];
-        filteredList.toArray(moedas);
-        listView.setAdapter(new CryptoAdapter(getActivity(),
-                R.layout.listcripto, moedas, queue));
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(getContext(), CoinDetails.class);
-            intent.putExtra("classe", moedas[position]);
-            intent.putExtra("moeda", moedas[position].getName());
-            startActivity(intent);
-            return;
-        });
     }
 
     @Override

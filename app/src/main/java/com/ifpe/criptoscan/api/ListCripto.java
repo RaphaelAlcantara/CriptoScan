@@ -3,9 +3,15 @@ package com.ifpe.criptoscan.api;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Network;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BaseHttpStack;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ifpe.criptoscan.model.CriptoMoeda;
@@ -45,6 +51,10 @@ public class ListCripto{
                         Toast.makeText(context, "Erro ao obter dados da API", Toast.LENGTH_SHORT).show();
                     }
                 });
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                2000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         Volley.newRequestQueue(context).add(request);
     }
@@ -52,7 +62,7 @@ public class ListCripto{
     public void processCryptoData(JSONObject response) {
         try {
             List<CriptoMoeda> list = new ArrayList<>();
-            System.out.println(response);
+            System.out.println(response.length());
             JSONArray data = response.getJSONArray("Data");
             // Verificar se há pelo menos 5 elementos no array
             for(int i=0;i<data.length();i++) {
