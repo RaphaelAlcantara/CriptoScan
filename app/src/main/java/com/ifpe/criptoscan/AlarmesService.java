@@ -62,7 +62,6 @@ public class AlarmesService extends Service {
     }
 
     private Notification createNotification() {
-        // Construir a notificação
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle("CriptoScan")
@@ -76,11 +75,9 @@ public class AlarmesService extends Service {
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, MyAlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-        // Defina o tempo em milissegundos quando o alarme será disparado (por exemplo, daqui a 10 minutos)
+        //Alarm_interval = intervalo de tempo
         long triggerTime = System.currentTimeMillis() + ALARM_INTERVAL;
 
-        // Agende o alarme para disparar o BroadcastReceiver após o intervalo de 10 minutos
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

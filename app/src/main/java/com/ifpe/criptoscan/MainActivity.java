@@ -14,18 +14,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ifpe.criptoscan.model.User;
-import com.ifpe.criptoscan.repositorios.Repositorio;
-
 
 public class MainActivity extends AppCompatActivity {
-    private static final int PERMISSIONS_REQUEST_FOREGROUND_SERVICE = 1;
-    private static final int PERMISSIONS_REQUEST_BOOT_COMPLETED = 2;
     private TextView edEmail;
     private TextView edPassword;
 

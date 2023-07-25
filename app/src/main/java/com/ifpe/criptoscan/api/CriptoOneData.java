@@ -56,9 +56,6 @@ public class CriptoOneData {
         try {
             Notificacao notificacao=null;
             double preco = Double.parseDouble(response.getString("BRL"));
-            /*System.out.println("Moeda: "+alerta.getCoin().getName()+
-                    "\nValor do alerta: "+alerta.getValor()+
-                    "\nValor Recebido da leitura: "+preco);*/
             if(alerta.isDownPrices())
             {
                 if(preco<alerta.getValor())

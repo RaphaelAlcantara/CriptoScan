@@ -160,7 +160,6 @@ public class CoinDetails extends AppCompatActivity implements CryptoDataListener
                         // User cancelled the dialog
                     }
                 });
-        // Create the AlertDialog object and return it
         builder.create().show();
     }
 

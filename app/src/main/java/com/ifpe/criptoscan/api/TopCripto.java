@@ -53,7 +53,6 @@ public class TopCripto {
         try {
             List<CriptoMoeda> list = new ArrayList<>();
             JSONArray data = response.getJSONArray("Data");
-            // Verificar se há pelo menos 5 elementos no array
             for(int i=0;i<data.length();i++) {
                 JSONObject coin1 = data.getJSONObject(i);
                 JSONObject coinInfo1 = coin1.getJSONObject("CoinInfo");
@@ -67,15 +66,9 @@ public class TopCripto {
                 CriptoMoeda cpr = new CriptoMoeda(coinName1,coinFullName1,price1,variant1,MKTCAP1, imageURL);
                 list.add(cpr);
             }
-
-                // Atribuir os valores aos restantes das variáveis (coin3, coin4, coin5)
-
-                // Chamar o método onCryptoDataReceived do ouvinte
-                if (cryptoDataListener != null) {
+            if (cryptoDataListener != null) {
                     cryptoDataListener.onCryptoTopDataReceived(list);
-
-                    // Chamar o método onCryptoDataReceived para os restantes das variáveis
-                }
+             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
